@@ -19,3 +19,14 @@
   如loader.item.width = 50
 - 加载图片使用Image
 - 使用动图AnimatedImage
+
+## 第六课 MouseArea
+
+- MouseArea默认是左键，如果要接受左右键使用acceptedButtons: Qt.LeftButton | Qt.RightButton
+- 如果想要知道按下的是哪个按键，使用pressedButtons
+   var ret = pressedButtons & Qt.LeftButt  on
+- 判断鼠标是否在MouseArea区域内，使用containsMouse和containsPress
+- 其中containsMouse使用的前提是hoverEnabled = true，否则其效果和containsPress相同，即鼠标在区域内点击时，才会触发
+- 在区域内，变成一个十字形的光标
+- 拖动区域中的控件，使用drag
+- drag.filterChildren子控件继承了父控件拖动的属性
