@@ -11,22 +11,30 @@
 
 ## 第五课 component和loader
 
-- Component.onCompleted//窗口创建的时候加载
-- Component.onDestruction//窗口销毁的时候加载
-- Component自定义空间，Loader来加载控件
-- 可以使用loader.sourceComponent = null对loader中的控件进行析构
-- 如果想在控价加载完成之后，依然对控件进行属性修改，可以使用item
-  如loader.item.width = 50
-- 加载图片使用Image
-- 使用动图AnimatedImage
+- `Component.onCompleted`//窗口创建的时候加载
+- `Component.onDestruction`//窗口销毁的时候加载
+- `Component`自定义空间，`Loader`来加载控件
+- 可以使用`loader.sourceComponent = null`对`loader`中的控件进行析构
+- 如果想在控价加载完成之后，依然对控件进行属性修改，可以使用`item`
+  如`loader.item.width = 50`
+- 加载图片使用`Image`
+- 使用动图`AnimatedImage`
 
 ## 第六课 MouseArea
 
-- MouseArea默认是左键，如果要接受左右键使用acceptedButtons: Qt.LeftButton | Qt.RightButton
-- 如果想要知道按下的是哪个按键，使用pressedButtons
-   var ret = pressedButtons & Qt.LeftButt  on
-- 判断鼠标是否在MouseArea区域内，使用containsMouse和containsPress
-- 其中containsMouse使用的前提是hoverEnabled = true，否则其效果和containsPress相同，即鼠标在区域内点击时，才会触发
+- `MouseArea`默认是左键，如果要接受左右键使用`acceptedButtons: Qt.LeftButton | Qt.RightButton`
+- 如果想要知道按下的是哪个按键，使用`pressedButtons`
+   `var ret = pressedButtons & Qt.LeftButt `
+- 判断鼠标是否在`MouseArea`区域内，使用`containsMouse`和`containsPress`
+- 其中`containsMouse`使用的前提是`hoverEnabled = true`，否则其效果和`containsPress`相同，即鼠标在区域内点击时，才会触发
 - 在区域内，变成一个十字形的光标
-- 拖动区域中的控件，使用drag
-- drag.filterChildren子控件继承了父控件拖动的属性
+- 拖动区域中的控件，使用`drag`
+- `drag.filterChildren`子控件继承了父控件拖动的属性
+
+## 第七课 Button
+
+- `autoExclusive`控制按钮排他
+- `autoRepeat`在按住按键时，可以不断触发`clicked`，`pressed`和`released`
+- `autoRepeatDelay`按压按键多少秒之后触发三个状态
+- `autoRepeatInterval`触发状态之后，每多少秒重复触发状态
+- `button`的样式很固定，使用`background: Rectangle`，创建一个`rectangle`控件来改变`button`
