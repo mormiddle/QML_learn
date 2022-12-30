@@ -38,3 +38,13 @@
 - `autoRepeatDelay`按压按键多少秒之后触发三个状态
 - `autoRepeatInterval`触发状态之后，每多少秒重复触发状态
 - `button`的样式很固定，使用`background: Rectangle`，创建一个`rectangle`控件来改变`button`
+
+## 第八课 Property
+
+- `property`后面可以直接用`Component`等组件，调用之后，传什么样的`Component`就出现什么样的`Component`，实现了一个动态调用的过程
+-  即`property`可以支持组件，可以不赋值，在外界需要的时候再传参，实现动态加载组件的过程
+- 在`property`前，加`readonly`，使得这个属性只读
+- 想要访问到子控件，给子控件起别名
+  `property alias newInnerRect: innerRect`
+  也可以只给某个属性去别名
+  `property alias newInnerRectColor: innerRect.color`
