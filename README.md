@@ -51,11 +51,11 @@
 
 ## 第九课 CheckBox
 
-- CheckBox生成一个可以勾选的框
+- `CheckBox`生成一个可以勾选的框
 
-- tristate使得选择框有三种模式可以选择
+- `tristate`使得选择框有三种模式可以选择
 
-- autoExclusive继承自AbstractButton，使得可以自动排它，但是在CheckBox中并不生效
+- `autoExclusive`继承自`AbstractButton`，使得可以自动排它，但是在`CheckBox`中并不生效
   想要实现排它，可以将之放在容器中
 
   ```qml
@@ -66,7 +66,7 @@
             }
   ```
 
-  其中exclusive就是排它的作用，buttons是需要排它的控件，如下所示
+  其中`exclusive`就是排它的作用，`buttons`是需要排它的控件，如下所示
   ```qml
       Column {
           id:col
@@ -85,7 +85,7 @@
   
   ```
 
-  或者，在CheckBox中设置分组
+  或者，在`CheckBox`中设置分组
 
   ```qml
       ButtonGroup {
@@ -114,7 +114,18 @@
       }
   ```
 
-- nextCheckState进行CheckBox的状态切换
+- `nextCheckState`进行`CheckBox`的状态切换
+
+## 第十课 Button扩展
+
+- `DelayButton`点击中包含进度的按钮
+- `RadioButton`是一个单选按钮，自带排它性质
+- `Switch`是一个切换的按钮，`autoExclusive`对其无效，依然需要`ButtonGroup`
+- `TabBar`相当于一个切页的`button`，自带排它性质
+- `RoundButton`是一个圆形的按钮
+- `ToolBar`是一个组合按钮的功能
+- 在`button`中使用附加属性来进行自定义设计，且附加属性进行控制时，需要通过id来调用控件
+- `button`使用`contentItem`对附加属性进行自定义修改
 
 
 
