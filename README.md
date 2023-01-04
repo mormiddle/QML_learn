@@ -48,3 +48,75 @@
   `property alias newInnerRect: innerRect`
   也可以只给某个属性去别名
   `property alias newInnerRectColor: innerRect.color`
+
+## 第九课 CheckBox
+
+- CheckBox生成一个可以勾选的框
+
+- tristate使得选择框有三种模式可以选择
+
+- autoExclusive继承自AbstractButton，使得可以自动排它，但是在CheckBox中并不生效
+  想要实现排它，可以将之放在容器中
+
+  ```qml
+   ButtonGroup {
+                id: childGroup
+                exclusive: true
+                buttons: col.children
+            }
+  ```
+
+  其中exclusive就是排它的作用，buttons是需要排它的控件，如下所示
+  ```qml
+      Column {
+          id:col
+          CheckBox {
+                   checked: true
+                   text: qsTr("First")
+               }
+               CheckBox {
+                   text: qsTr("Second")
+               }
+               CheckBox {
+                   checked: true
+                   text: qsTr("Third")
+               }
+      }
+  
+  ```
+
+  或者，在CheckBox中设置分组
+
+  ```qml
+      ButtonGroup {
+                id: childGroup
+                exclusive: true
+                //buttons: col.children
+            }
+  
+      Column {
+          id:col
+          CheckBox {
+                   checked: true
+                   //tristate: true
+                   text: qsTr("First")
+                   ButtonGroup.group: childGroup
+               }
+               CheckBox {
+                   text: qsTr("Second")
+                   ButtonGroup.group: childGroup
+               }
+               CheckBox {
+                   checked: true
+                   text: qsTr("Third")
+                   ButtonGroup.group: childGroup
+               }
+      }
+  ```
+
+- nextCheckState进行CheckBox的状态切换
+
+
+
+
+
