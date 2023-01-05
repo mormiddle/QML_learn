@@ -222,6 +222,228 @@
       }
   ```
 
+
+## 第十二课 popup绘制和overlay使用
+
+- `popup`的开启
+
+  ```qml
+      Button {
+          width: 50
+          height: 50
+          onClicked: {
+              popup.open()
+          }
+      }
+  
+      Popup {     //默认的popup类似于rectangle
+               id: popup
+               x: 100
+               y: 100
+               width: 200
+               height: 300
+               //默认不启动
+               //使用visible来显示，或者使用open函数
+               //visible: true
+           }
+  ```
+
+- `popup`的第一个例外
+
+  ```qml
+      Rectangle {
+          width: 200
+          height: 100
+          color: "black"
+          visible: false
+          //子控件覆盖在父控件上，父控件visible为false，子控件即使是true，也无法显示
+          Rectangle {
+              width: 50
+              height: 50
+              color: "red"
+              visible: true
+          }
+          //但是popup是个例外,及时父控件是否显示对popup并不存在影响
+          Popup {
+              width: 50
+              height: 50
+              visible: true
+          }
+  
+      }
+  ```
+
+- `popup`第二个例外，z顺序
+
+  ```qml
+      Rectangle {
+          id: rect
+          z: 10000
+          width: 200
+          height: 100
+          color: "black"
+      }
+  
+      //后面的控件z顺序大于前面的
+      //但是popup是个例外
+      //无论其他的控件z顺序是多少，popup的永远在最上层
+      //popup的z顺序，只对同为popup的控件有效
+      Popup {
+          id: rect2
+          z: -1
+          width: 200
+          height: 100
+          x: 100
+      }
+  ```
+
+  `popup`的z顺序只针对`popup`，会永远优先于其他控件
+
+  ```qml
+      Popup {
+          id: rect
+          z: 1
+          width: 200
+          height: 100
+          visible: true
+          background: Rectangle {
+              color: "black"
+          }
+      }
+  
+      Popup {
+          id: rect2
+          width: 200
+          height: 100
+          x: 100
+          z: -1
+          background: Rectangle {
+              color: "blue"
+          }
+      }
+  ```
+
+- `closePolicy`关闭协议，`modal`模态对话框
+
+  ```qml
+      //closePolicy默认的关闭逻辑是，点击外接和esc都会关闭popup
+      closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+      //模态对话框：不关闭这个对话框，无法对系统的其他内容进行操作
+      modal: false
+      //dim控制非模态对话框情况下的背景色是否需要设置
+      dim: true
+      //enter和exit，打开和关闭时的动画效果设置
+  ```
+
+- `enter`和`exit`，打开和关闭时的动画效果设置
+
+  ```qml
+  //enter和exit，打开和关闭时的动画效果设置
+      enter: Transition { //打开的时候
+          NumberAnimation {
+              property: "opacity";
+              from: 0.0;
+              to: 1.0
+              duration: 1000
+          }
+      }
+      exit: Transition {
+          NumberAnimation {
+              property: "opacity";
+              from: 1.0;
+              to: 0.0
+              duration: 1000
+          }
+      }
+  ```
+
+- `contentItem`定制`Popup`
+
+  ```qml 
+  contentItem: Rectangle {
+          anchors.fill: parent
+          Text {
+              id: txt
+              anchors.fill: parent
+              text: qsTr("Message Box Area!!!")
+              font.pixelSize: 26
+              wrapMode: Text.WordWrap
+          }
+      }
+  ```
+
+- 给`Popup`加`button`
+  ```qml 
+      Button {
+          anchors.bottom: parent.bottom
+          anchors.bottomMargin: 30
+          anchors.right: parent.right
+          anchors.rightMargin: 30
+          text: "cancel"
+      }
+  
+      Button {
+          anchors.bottom: parent.bottom
+          anchors.bottomMargin: 30
+          anchors.right: parent.right
+          anchors.rightMargin: 230
+          text: "ok"
+      }
+  ```
+
+- 对`Popup`以外的部分进行控制
+  ```qml
+      //如果是模态框用Overlay.modal，如果是非模态框用Overlay.modalless
+      Overlay.modal: Rectangle {
+          anchors.fill: parent
+          color: "lightsteelblue"
+      }
+  
+      Overlay.modalless: Rectangle {
+          anchors.fill: parent
+          color: "lightsteelblue"
+      }
+  ```
+
+- 对于模态框情况下， 背景色设置透明的方法
+  ```qml
+      Overlay.modal: Rectangle {
+          anchors.fill: parent
+  //        color: "lightsteelblue" //英语设置颜色
+  //        color: "#FF0000"    //  RGB的16进制设置颜色
+          color: "#33000000"  //RGBA ARGB 该颜色为透明色
+  
+      }
+  ```
+
+- 如果想在模态框的情况下，在背景中添加一个可以点击的按钮
+  ```qml
+      Overlay.modal: Rectangle {
+          anchors.fill: parent
+  //        color: "lightsteelblue" //英语设置颜色
+  //        color: "#FF0000"    //  RGB的16进制设置颜色
+          color: "#33000000"  //RGBA ARGB 该颜色为透明色
+  
+          //如果想在模态框的情况下，在背景中添加一个可以点击的按钮
+          Popup {
+              width: parent.width
+              height: 80
+              closePolicy: Popup.NoAutoClose
+              visible: true
+              background: Rectangle {
+  //                color: "transparent"
+                  color: "grey"
+              }
+              Button {
+                  width: 50
+                  height: 50
+                  anchors.right: parent.right
+              }
+          }
+  
+      }
+  ```
+
   
 
 
