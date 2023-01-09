@@ -460,7 +460,51 @@
           }
   ```
 
+## 第十四课 ListView
 
+- 封装自定义的变量，然后使用
+  ```qml
+       model: ListModel {
+           ListElement {
+               name: "Bill Smith"
+               number: "555 3264"
+               myValue: 111
+           }
+           ListElement {
+               name: "John Brown"
+               number: "555 8426"
+               myValue: 222
+           }
+           ListElement {
+               name: "Sam Wise"
+               number: "555 0473"
+               myValue: 333
+           }
+       }
+       spacing: 10    //每一项之间的距离
+       delegate: Button {   //控制了每一项数据是如何绘制的
+           text: name + " " + number + " " + myValue
+       }
+  ```
 
+- 高亮显示和移动
+  ```qml
+   highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+       delegate: Rectangle {   //控制了每一项数据是如何绘制的
+           color: "transparent"
+           width: list.width
+           height: 50
+           Text {
+               id: txt
+               text: name
+           }
+           MouseArea {
+               anchors.fill: parent
+               onClicked: {
+                   currentIndex = index
+               }
+           }
+  ```
 
+- `header`和`footer`，给控件最上面和最下面添加加效果，不影响其他部分
 
